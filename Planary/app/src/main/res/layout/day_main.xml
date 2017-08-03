@@ -7,7 +7,8 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:paddingTop="5dp"
         android:orientation="horizontal">
         <Button
@@ -23,7 +24,9 @@
             android:layout_weight="4"
             android:id="@+id/day_date"
             android:text="날짜"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:onClick="mChangeDate"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,46 +45,54 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="15dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="vertical"
-            android:id="@+id/todolist"
-            android:background="@drawable/todolist_bg">
+            android:id="@+id/daytodo"
+            android:background="@drawable/daytodolist_bg"
+            android:onClick="intentTodo">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/todoadd"
+                android:background="#00FF0000"
+                android:scaleType="center"
+                android:id="@+id/daytodo_add"
+                android:onClick="intentTodo"/>
             <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/day_list">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:id="@+id/daytodo_list"
+                android:divider="#00000000"
+                android:fastScrollEnabled="true"
+                android:listSelector="@android:color/transparent">
             </ListView>
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/day_check01"
-                android:text="은행 들려서 돈 입금"/>
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/day_check02"
-                android:text="기차표 예매"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
-            android:background="@drawable/daymemo_bg">
+            android:background="@drawable/daydiary_bg">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/day_memo"
-                android:text="농* 김수정 \n코레일 21일\n성신여대앞 할리스 3시"/>
+                android:layout_height="match_parent"
+                android:id="@+id/daymemo"
+                android:hint="오늘의 일기"
+                android:textColor="#000000"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
