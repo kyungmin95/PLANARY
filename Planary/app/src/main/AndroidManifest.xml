@@ -21,6 +21,13 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Day.DayDiaryActivity"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".WeekActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Week.WeekAddTodoActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".Week.WeekEditTodoActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

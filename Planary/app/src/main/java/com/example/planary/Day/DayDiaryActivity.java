@@ -17,7 +17,7 @@ public class DayDiaryActivity extends Activity {
     int year, month, day;
     Intent mintent;
     TextView dayDate;
-    String dd;
+    String dd; //DB에 사용하기 위한 날짜 저장하는 변수
     DayDiaryDB mHelper;
     EditText memoCont;
     @Override

@@ -36,7 +36,7 @@ public class DayTodolistActivity extends Activity {
         day = intent.getExtras().getInt("day");
         setDayDate();
 
-        //완료 버튼 누르면 이전 Day main 화면으로 돌아감(intent finish)
+        //완료 버튼 누르면 이전 Day main 화면으로 돌아감(intent finish). 현재 설정되어 있는 날짜를 intent로 보내며 intent 종료.
         findViewById(R.id.daytodoe_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +55,7 @@ public class DayTodolistActivity extends Activity {
         todoedAA = new DayEdTodoAD();
         makeList();
         edList.setAdapter(todoedAA);
+        //해당 리스트 클릭 시 해당 리스트의 내용을 dei 에다가 저장. 리스트 내용 수정에 사용.
         edList.setOnItemClickListener(new AdapterView.OnItemClickListener() { //리스트 클릭 시 해당 데이터의 DB 내용을 가져와 dei에 넣음
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,14 +105,14 @@ public class DayTodolistActivity extends Activity {
         SQLiteDatabase db = edhelper.getWritableDatabase();
         String str_cont;
         switch(v.getId()) {
-            case R.id.daytodoe_add:
+            case R.id.daytodoe_add: //추가시
                 str_cont = editCont.getText().toString();
                 if (str_cont.length() == 0)
                     break;
                 String queryadd = String.format("insert into %s values(null, '%s', '%s', '%s');", "pladaytodo", dd, str_cont, "F");
                 db.execSQL(queryadd);
                 break;
-            case R.id.daytodoe_upd:
+            case R.id.daytodoe_upd: //수정시
                 str_cont = editCont.getText().toString();
                 if (str_cont.length() == 0)
                     break;

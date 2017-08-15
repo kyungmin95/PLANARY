@@ -30,7 +30,7 @@ public class DayActivity extends Activity {
     DayDB helper;
     DayDiaryDB mHelper;
     ListView todolistLV;
-    TextView dayMemo;
+    TextView dayDiary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class DayActivity extends Activity {
                 }
                 setDayDate();
                 setDayTodolist();
-                setDayMemo();
+                setDayDiary();
             }
         });
 
@@ -95,7 +95,7 @@ public class DayActivity extends Activity {
                 }
                 setDayDate();
                 setDayTodolist();
-                setDayMemo();
+                setDayDiary();
             }
         });
 
@@ -106,7 +106,7 @@ public class DayActivity extends Activity {
                 getCurrentDate();
                 setDayDate();
                 setDayTodolist();
-                setDayMemo();
+                setDayDiary();
             }
         });
 
@@ -132,9 +132,9 @@ public class DayActivity extends Activity {
         });
 
         //일기 부분 클릭하면 수정 부분으로 넘어가는 intent 설정
-        dayMemo = (TextView)findViewById(R.id.daymemo);
-        setDayMemo();
-        dayMemo.setOnClickListener(new View.OnClickListener() {
+        dayDiary = (TextView)findViewById(R.id.daydiary);
+        setDayDiary();
+        dayDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent diaryIntent = new Intent(DayActivity.this, DayDiaryActivity.class);
@@ -173,7 +173,7 @@ public class DayActivity extends Activity {
             day = cdayOfMonth;
             setDayDate();
             setDayTodolist();
-            setDayMemo();
+            setDayDiary();
         }
     };
 
@@ -195,7 +195,7 @@ public class DayActivity extends Activity {
             day = data.getExtras().getInt("cDay");
             setDayDate();
             setDayTodolist();
-            setDayMemo();
+            setDayDiary();
         }
     }
 
@@ -219,12 +219,12 @@ public class DayActivity extends Activity {
         todolistAA.notifyDataSetChanged();
     }
 
-    public void setDayMemo() { //일기 화면에 DB에서 가져온 memocont 값을 가져옴.
-        dayMemo.setText("");
+    public void setDayDiary() { //일기 화면에 DB에서 해당 날짜에 해당하는 dicont 값을 넣음.
+        dayDiary.setText("");
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor c = db.rawQuery("select dicont from pladaydi where date = '"+ dd + "';", null);
         while(c.moveToNext()) {
-            dayMemo.setText(c.getString(0));
+            dayDiary.setText(c.getString(0));
         }
         c.close();
         db.close();

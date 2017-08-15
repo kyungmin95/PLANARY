@@ -1,5 +1,6 @@
 package com.example.planary;
 
+import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +22,9 @@ public class MainActivity extends TabActivity {
         mTab.addTab(mTab.newTabSpec("month").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.month))
                 .setContent(new Intent(this, ExActivity.class)));
         mTab.addTab(mTab.newTabSpec("week").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.week))
-                .setContent(new Intent(this, ExActivity.class)));
+                .setContent(new Intent(this, WeekActivity.class)));
         mTab.addTab(mTab.newTabSpec("day").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.day))
-                .setContent(new Intent(this, DayActivity.class)));
+                .setContent(new Intent(this, DayActivity.class))); //해당 탭 누르면 DayActivity와 내용이 연결
         mTab.addTab(mTab.newTabSpec("memo").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.memo))
                 .setContent(new Intent(this, ExActivity.class)));
     }

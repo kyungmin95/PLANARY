@@ -10,7 +10,7 @@ public class DayDiaryDB extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) { //id(_id), 날짜(date), 내용(dicont) 저장하는 테이블 생성
         db.execSQL("create table pladaydi " +
                 "(_id integer primary key autoincrement, date text not null, dicont text not null);");
     }

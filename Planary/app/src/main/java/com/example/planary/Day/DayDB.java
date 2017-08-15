@@ -11,7 +11,7 @@ public class DayDB extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) { //id, 날짜, 내용, 체크박스 체크 여부 저장하는 테이블 생성
+    public void onCreate(SQLiteDatabase db) { //id(_id), 날짜(date), 내용(content), 체크박스 체크 여부(checked) 저장하는 테이블 생성
         db.execSQL("create table pladaytodo " +
                 "(_id integer primary key autoincrement, date text not null, content text not null, checked text not null);");
     }
