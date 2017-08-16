@@ -28,6 +28,7 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Week.WeekEditTodoActivity"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".MonthActivity"/>
     </application>
 
 </manifest>

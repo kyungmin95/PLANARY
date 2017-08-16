@@ -20,7 +20,7 @@ public class MainActivity extends TabActivity {
         LayoutInflater.from(this).inflate(R.layout.activity_main, mTab.getTabContentView(), true); //activity_main.xml과 inflate
         //탭을 추가
         mTab.addTab(mTab.newTabSpec("month").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.month))
-                .setContent(new Intent(this, ExActivity.class)));
+                .setContent(new Intent(this, MonthActivity.class)));
         mTab.addTab(mTab.newTabSpec("week").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.week))
                 .setContent(new Intent(this, WeekActivity.class)));
         mTab.addTab(mTab.newTabSpec("day").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.day))
