@@ -15,7 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExActivity"/>
         <activity android:name=".DayActivity"/>
         <activity android:name=".Day.DayTodolistActivity"
             android:windowSoftInputMode="stateHidden"/>
@@ -29,6 +28,10 @@
         <activity android:name=".Week.WeekEditTodoActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".MonthActivity"/>
+        <activity android:name=".MemoActivity" />
+        <activity android:name=".Memo.MemoCont"/>
+        <activity android:name=".Memo.MemoAddEdit"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

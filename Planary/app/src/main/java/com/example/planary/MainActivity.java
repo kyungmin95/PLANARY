@@ -1,6 +1,5 @@
 package com.example.planary;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,13 +19,13 @@ public class MainActivity extends TabActivity {
         LayoutInflater.from(this).inflate(R.layout.activity_main, mTab.getTabContentView(), true); //activity_main.xml과 inflate
         //탭을 추가
         mTab.addTab(mTab.newTabSpec("month").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.month))
-                .setContent(new Intent(this, MonthActivity.class)));
+                .setContent(new Intent(this, MonthActivity.class))); //해당 탭 누르면 MonthActivity와 내용이 연결
         mTab.addTab(mTab.newTabSpec("week").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.week))
-                .setContent(new Intent(this, WeekActivity.class)));
+                .setContent(new Intent(this, WeekActivity.class))); //해당 탭 누르면 WeekActivity와 내용이 연결
         mTab.addTab(mTab.newTabSpec("day").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.day))
                 .setContent(new Intent(this, DayActivity.class))); //해당 탭 누르면 DayActivity와 내용이 연결
         mTab.addTab(mTab.newTabSpec("memo").setIndicator(getTabIndicator(mTab.getContext(), R.drawable.memo))
-                .setContent(new Intent(this, ExActivity.class)));
+                .setContent(new Intent(this, MemoActivity.class))); //해당 탭 누르면 MemoActivity와 내용이 연결
     }
 
     private View getTabIndicator(Context context, int icon) {   //탭의 디자인을 지정하기 위해 탭 디자인 설정 layout과 연결시키는 함수
