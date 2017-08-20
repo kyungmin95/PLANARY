@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.planary.R;
 
@@ -20,6 +21,7 @@ public class MemoAddEdit extends Activity { //메모를 추가, 수정하는 화
     int year, month, day; //오늘 날짜를 저장하기 위한 변수
     String dd, sd; //DB에 사용하기 위한 오늘 날짜와 시간을 저장하는 변수.
     EditText title, cont;
+    TextView tab;
     String t, c;
     MemoDB mhelper;
     Calendar cal;
@@ -33,6 +35,7 @@ public class MemoAddEdit extends Activity { //메모를 추가, 수정하는 화
         con = maeIntent.getExtras().getInt("CON");
         title = (EditText)findViewById(R.id.memoae_title);
         cont = (EditText)findViewById(R.id.memoae_cont);
+        tab = (TextView)findViewById(R.id.memoae_tab);
         mhelper = new MemoDB(this);
 
         //달력을 가져와 년,월,일 을 저장하고 DB에 사용하기 위해 dd 에 String 값으로 날짜 저장
@@ -45,6 +48,7 @@ public class MemoAddEdit extends Activity { //메모를 추가, 수정하는 화
         if(con == 1) { //con 이 1이면 MemoActivity 에서 추가 버튼을 누르고 들어왔다는 이야기이므로 title 과 cont 에 내용이 없음.
             title.setText("");
             cont.setText("");
+            tab.setText("메모 추가");
         }
         //나머지 경우는 MemoCont 에서 수정을 하기 위해 이 화면으로 왔다는 이야기이므로,
         //MemoCont 에서 받아온 id 값을 mid에 저장하고 그 값으로 DB에서 해당 메모의 title과 content 를 가져와 title 과 cont 에 내용을 넣음.
@@ -56,6 +60,7 @@ public class MemoAddEdit extends Activity { //메모를 추가, 수정하는 화
                 title.setText(c.getString(0));
                 cont.setText(c.getString(1));
             }
+            tab.setText("메모 수정");
             c.close();
             db.close();
         }
