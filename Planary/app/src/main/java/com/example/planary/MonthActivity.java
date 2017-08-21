@@ -2,12 +2,13 @@ package com.example.planary;
 
 
 import android.app.Activity;
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.planary.Month.CalendarAdapter;
@@ -19,13 +20,13 @@ import java.util.Calendar;
 public class MonthActivity extends Activity {
 
     GridView gridView;
+    ImageView img;
     ArrayList<DayInfo> list;
     CalendarAdapter calendarAdapter;
     Calendar c; //현재 날짜를 가져오기 위해 Calendar 사용
     int year, month, day; //년, 월, 일을 저장하는 변수 지정
     TextView dayDate; //사용자가 원하는 년, 월, 일을 저장해 띄우는 TextView
-    String sdate; //DB에서 사용하기 위한 날짜
-    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +38,9 @@ public class MonthActivity extends Activity {
         getCurrentDate();
         setDayDate();  //getCurrentDate로 오늘 날짜를 가져온 뒤, 그 값을 dayDate에 입력(아무 버튼도 누르지 않은 기본 상태)
 
-        intent = getIntent();
-
         //오늘날짜 세팅
         System.currentTimeMillis();
         list = new ArrayList<>();
-
-
-        //그리드뷰 아이템 클릭 시 일정 표시, 팝업으로 일정을 보여줌
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-            }
-
-        });
     }
 
     @Override
@@ -81,12 +69,7 @@ public class MonthActivity extends Activity {
                 c = getNextMonth(c);
                 getCalendar(c);
                 break;
-            case R.id.day_today: //오늘 날짜 반환
-                //   String sToday = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-                //  if (sToday.equals(gridView.getAdapter().getItem(pos) {
-
-                //    holder.tvItemDay.setTextColor(Color.rgb(150, 190, 233));
-                //}
+            case R.id.day_today: //오늘날짜가 있는 달로 이동
                 getCurrentDate();
                 setDayDate();
                 getCalendar(c);
@@ -96,11 +79,12 @@ public class MonthActivity extends Activity {
 
     public void getCurrentDate() {  //오늘 날짜를 가져오는 함수. Calendar 사용.
         c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH, 1);
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH) + 1;
     }
 
-    public void setDayDate() {  //TextView에 년, 월, 일을 입력하는 함수
+    public void setDayDate() {  //TextView에 년, 월, 일을 입력하고 데이터베이스에서 사용하기 위한 sdate 설정
         dayDate = (TextView) findViewById(R.id.day_date);
         dayDate.setText(c.get(Calendar.YEAR) + "년 " + (c.get(Calendar.MONTH) + 1) + "월 ");
     }
@@ -188,16 +172,5 @@ public class MonthActivity extends Activity {
         gridView.setAdapter(calendarAdapter);
     }
 
-    // MonthAddActivity에서 보낸 intent를 받는 함수. 해당 날짜의 스케줄을 달력에 표시함
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            year = data.getExtras().getInt("cYear");
-            month = data.getExtras().getInt("cMonth");
-            day = data.getExtras().getInt("cDay");
-            sdate = Integer.toString(year) + Integer.toString(month) + Integer.toString(day);
-        }
-    }
 }
 

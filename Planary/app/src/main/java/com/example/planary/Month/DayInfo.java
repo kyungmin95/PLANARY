@@ -10,9 +10,7 @@ public class DayInfo {
     private boolean inMonth;
 
     //날짜를 반환
-    public String getDay() {
-        return day;
-    }
+    public String getDay() { return day; }
 
     //날짜를 저장
     public void setDay(String day) {
@@ -28,4 +26,5 @@ public class DayInfo {
     public void setInMonth(boolean inMonth) {
         this.inMonth = inMonth;
     }
+
 }
