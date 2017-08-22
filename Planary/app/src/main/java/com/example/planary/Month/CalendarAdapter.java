@@ -50,7 +50,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        DayInfo day = list.get(position);
+        DayInfo day = list.get(position); //position 위치에 있는 리스트를 가져와 day에 넣음
         ViewHolder holder;
 
         if (convertView == null) {
@@ -66,14 +66,14 @@ public class CalendarAdapter extends BaseAdapter {
         }
         holder.tvItemDay.setText("" + getItem(position));
 
-        //체크되지 않은 todolist의 갯수를 받아 화면에 띄움. 갯수가 없으면 아무것도 띄우지 않고, 갯수가 있으면 화면에 띄운다.
-        if(day.getTodoCount() == 0) {
-            holder.tvTodo.setText("");
-            holder.checkImg.setVisibility(View.INVISIBLE);
+        //day로부터 체크되지 않은 todolist의 갯수를 받아 화면에 띄움. 갯수가 없으면 아무것도 띄우지 않고, 갯수가 있으면 화면에 띄운다.
+        if(day.getTodoCount() == 0) { //체크안된 todolist 갯수가 없는 경우
+            holder.tvTodo.setText(""); //아무 숫자도 나타나지 않음
+            holder.checkImg.setVisibility(View.INVISIBLE); //이미지도 없앰
         }
-        else {
-            holder.checkImg.setVisibility(View.VISIBLE);
-            holder.tvTodo.setText(Integer.toString(day.getTodoCount()));
+        else { //체크안된 todolist 갯수가 있는 경우
+            holder.checkImg.setVisibility(View.VISIBLE); //이미지 보임
+            holder.tvTodo.setText(Integer.toString(day.getTodoCount())); //갯수를 화면에 나타냄
         }
 
         //다이어리가 있으면 이미지를 보이게 하고, 다이어리가 없으면 이미지를 보이지 않게 한다.

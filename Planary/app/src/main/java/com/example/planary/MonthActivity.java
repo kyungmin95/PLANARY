@@ -133,7 +133,7 @@ public class MonthActivity extends Activity {
         for (int i = 0; i < dayOfMonth - 1; i++) {
             int date = lastMonthStartDay + i;
             String sdate = Integer.toString(year) + Integer.toString(month-1) + Integer.toString(date);
-            //DB 탐색 위한 sdate 생성. 지난달을 표시하는 부분이니 month를 하나 줄인 sdate를 생성한다.
+            //DB 탐색 위한 String 타입의 sdate 생성. 지난달을 표시하는 부분이니 month를 하나 줄인 sdate를 생성한다.
             //day에 해당 내용들을 삽입하고 list 에 add
             day = new DayInfo();
             day.setDay(Integer.toString(date));
@@ -143,7 +143,7 @@ public class MonthActivity extends Activity {
             list.add(day);
         }
         for (int i = 1; i <= thisMonthLastDay; i++) {
-            String sdate = Integer.toString(year) + Integer.toString(month) + Integer.toString(i);//DB 탐색 위한 sdate 생성.
+            String sdate = Integer.toString(year) + Integer.toString(month) + Integer.toString(i);//DB 탐색 위한 String 타입의 sdate 생성.
             //day에 내용 삽입하고 list 에 add
             day = new DayInfo();
             day.setDay(Integer.toString(i));
@@ -194,26 +194,28 @@ public class MonthActivity extends Activity {
     }
 
     public boolean getDiary(String date) { //인자로 받은 date 에 해당하는 일기가 있는지 탐색하고, 일기가 있으면 true 없으면 false 를 반환
-        String sdate = date;
+        String sdate = date; //인자로 받은 date 값을 sdate 에 넣음
         DayDiaryDB dHelper = new DayDiaryDB(this); //day의 diary DB를 가져와 dHelper 만듦
-        SQLiteDatabase db = dHelper.getReadableDatabase();
+        SQLiteDatabase db = dHelper.getReadableDatabase(); //select 위한 SQLiteDatabase 생성
         Cursor c = db.rawQuery("select dicont from pladaydi where date = '" + sdate + "';", null);
+        //커서 이용해 date가 sdate 인 데이터의 dicont를 가져옴
         int count = 0; //해당 내용이 있는지 없는지를 구분하기 위한 변수. 0으로 초기화.
         while (c.moveToNext()) {
             count++; //select 한 결과가 있으면 count를 증가
         }
-        c.close();
-        db.close();
+        c.close(); //커서 닫음
+        db.close(); //db 닫음
         if(count == 0 ) return false; //count가 0이면 일기가 없다는 이야기이므로 false 를 반환
         else return true; //count가 0이 아니면 일기가 있다는 이야기이므로 true를 반환
     }
 
     public int getTodo(String date) { //인자로 받은 date에 있는 todolist 중 체크되지 않은(checkde 가 F) todolist의 갯수를 반환하는 함수
-        String sdate = date;
+        String sdate = date; //인자로 받은 date 값을 sdate 에 넣음
         int count = 0; //체크되지 않은 todolist 갯수 저장하기 위한 변수. 0으로 초기화.
         DayDB helper = new DayDB(this); //day의 todolist DB를 가져와 helper 생성
-        SQLiteDatabase db = helper.getReadableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase(); //select 위한 SQLiteDatabase 생성
         Cursor c = db.rawQuery("select content from pladaytodo where date = '" + sdate + "'" + " AND checked = 'F';", null);
+        //커서 이용해 date가 sdate 이고 체크상태 여부가 F인 데이터의 content 를 가져옴
         while (c.moveToNext()) {
             count++; //결과가 나올때마다 count 1씩 증가
         }

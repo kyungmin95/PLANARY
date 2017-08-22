@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-//Day에 필요한 DB를 생성
+//Day의 todolist에 필요한 DB를 생성
 public class DayDB extends SQLiteOpenHelper {
     public DayDB(Context context) {
         super(context, "pladaytodo.db", null, 1);

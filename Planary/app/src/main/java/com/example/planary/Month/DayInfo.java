@@ -8,8 +8,8 @@ package com.example.planary.Month;
 public class DayInfo {
     private String day;
     private boolean inMonth;
-    private int todoCount;
-    private boolean diary;
+    private int todoCount; //체크되지 않은 todolist 개수를 저장하는 변수
+    private boolean diary; //다이어리가 있는지의 상태를 저장하는 변수. 있으면 true, 없으면 false
 
     //날짜를 반환
     public String getDay() { return day; }

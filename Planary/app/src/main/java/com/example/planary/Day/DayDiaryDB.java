@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//Day의 diary에 필요한 DB 생성
 public class DayDiaryDB extends SQLiteOpenHelper {
     public DayDiaryDB(Context context) {
         super(context, "pladaydi.db", null, 1);
