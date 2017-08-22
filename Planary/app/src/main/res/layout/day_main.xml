@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/daydiary"
-                android:hint="오늘의 일기"
+                android:hint="일기를 작성해보세요"
                 android:textColor="#000000"/>
         </LinearLayout>
     </LinearLayout>
