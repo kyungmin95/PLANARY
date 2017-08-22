@@ -14,7 +14,6 @@ public class MainActivity extends TabActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         TabHost mTab = getTabHost();
         LayoutInflater.from(this).inflate(R.layout.activity_main, mTab.getTabContentView(), true); //activity_main.xml과 inflate
         //탭을 추가
