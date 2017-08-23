@@ -105,7 +105,6 @@ public class CalendarAdapter extends BaseAdapter {
                 holder.checkImg.setColorFilter(Color.LTGRAY);
             }
         }
-
         notifyDataSetChanged();
         return convertView;
     }

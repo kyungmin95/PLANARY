@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -62,16 +61,18 @@ public class MonthActivity extends Activity {
         switch (v.getId()) {
             case R.id.month_left: // 이전 달로 이동
                 month -= 1; //month 하나 줄임
-                if(month == 0) { //month가 0이 되면 년도를 하나 줄이고 month를 12로 수정
-                    year -= 1; month = 12;
+                if (month == 0) { //month가 0이 되면 년도를 하나 줄이고 month를 12로 수정
+                    year -= 1;
+                    month = 12;
                 }
                 c = getLastMonth(c);
                 getCalendar(c);
                 break;
             case R.id.month_right: // 다음 달로 이동
                 month += 1; //month 하나 증가
-                if(month == 13) { //month가 13이 되면 year를 하나 증가시키고 month를 1로 수정
-                    year += 1; month = 1;
+                if (month == 13) { //month가 13이 되면 year를 하나 증가시키고 month를 1로 수정
+                    year += 1;
+                    month = 1;
                 }
                 c = getNextMonth(c);
                 getCalendar(c);
@@ -106,33 +107,26 @@ public class MonthActivity extends Activity {
 
         list.clear();
 
-        /*이번달의 시작일의 요일 구하기*/
-        dayOfMonth = c.get(Calendar.DAY_OF_WEEK);
-        thisMonthLastDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        dayOfMonth = c.get(Calendar.DAY_OF_WEEK); //이번달의 시작, 1일의 요일을 숫자로 넣음(1:일요일~7:토요일 기준)
+        thisMonthLastDay = c.getActualMaximum(Calendar.DAY_OF_MONTH); //이번 달의 마지막 날의 숫자를 구함
 
-        c.add(Calendar.MONTH, -1);
-        Log.e("지난달 마지막일", c.get(Calendar.DAY_OF_MONTH) + "");
-        //지난달의 마지막 일자를 구함
-        lastMonthStartDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        c.add(Calendar.MONTH, -1); //한달 전
+        lastMonthStartDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);  //지난달의 마지막 일자를 구함
 
-        c.add(Calendar.MONTH, 1);
-        Log.e("이번달 시작일", calendar.get(Calendar.DAY_OF_MONTH) + "");
+        c.add(Calendar.MONTH, 1); //한달 후
+        lastMonthStartDay -= (dayOfMonth - 1) - 1; //이번 달에서 보여질 지난 달 한 주를 계산
 
-        lastMonthStartDay -= (dayOfMonth - 1) - 1;
-
-        //캘린더 년월 표시
-        dayDate.setText(c.get(Calendar.YEAR) + "년 " + (c.get(Calendar.MONTH) + 1) + "월 ");
+        setDayDate();//캘린더 년월 표시
 
         DayInfo day;
-        Log.e("DayOfMonth", dayOfMonth + "");
 
         /*캘린더에 들어갈 숫자 입력
         * 저번달의 날짜를 회색으로 표시
         * 이번달의 날짜들을 표시
         * 다음달의 날짜들을 표시(총 7*6 =42칸을 기준으로 함)*/
-        for (int i = 0; i < dayOfMonth - 1; i++) {
+        for (int i = 0; i < dayOfMonth - 1; i++) { //이번 달에서 보여질 지난 달의 달력 세팅
             int date = lastMonthStartDay + i;
-            String sdate = Integer.toString(year) + Integer.toString(month-1) + Integer.toString(date);
+            String sdate = Integer.toString(year) + Integer.toString(month - 1) + Integer.toString(date);
             //DB 탐색 위한 String 타입의 sdate 생성. 지난달을 표시하는 부분이니 month를 하나 줄인 sdate를 생성한다.
             //day에 해당 내용들을 삽입하고 list 에 add
             day = new DayInfo();
@@ -142,7 +136,7 @@ public class MonthActivity extends Activity {
             day.setTodoCount(getTodo(sdate));
             list.add(day);
         }
-        for (int i = 1; i <= thisMonthLastDay; i++) {
+        for (int i = 1; i <= thisMonthLastDay; i++) { //이번 달 1일부터 마지막 날까지 달력 세팅
             String sdate = Integer.toString(year) + Integer.toString(month) + Integer.toString(i);//DB 탐색 위한 String 타입의 sdate 생성.
             //day에 내용 삽입하고 list 에 add
             day = new DayInfo();
@@ -152,8 +146,9 @@ public class MonthActivity extends Activity {
             day.setTodoCount(getTodo(sdate));
             list.add(day);
         }
+        //총 42칸의 달력에서 이번 달의 마지막 날짜와 시작일을 이용해 계산 후, 남은 날을 달력에 세팅(다음 달)
         for (int i = 1; i < 42 - (thisMonthLastDay + dayOfMonth - 1) + 1; i++) {
-            String sdate = Integer.toString(year) + Integer.toString(month+1) + Integer.toString(i);
+            String sdate = Integer.toString(year) + Integer.toString(month + 1) + Integer.toString(i);
             //DB 탐색 위한 sdate 생성. 다음달을 표시하는 부분이니 month를 하나 증가시킨 sdate를 생성한다.
             //day에 내용 삽입하고 list 에 add
             day = new DayInfo();
@@ -178,9 +173,9 @@ public class MonthActivity extends Activity {
     }
 
     /*다음음달의 Calendar 객체 반환
- * @param calendar
- * @return NextMonthCalendar
- * */
+    * @param calendar
+     * @return NextMonthCalendar
+    * */
     private Calendar getNextMonth(Calendar calendar) {
         calendar.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), 1);
         calendar.add(Calendar.MONTH, +1);
@@ -205,7 +200,7 @@ public class MonthActivity extends Activity {
         }
         c.close(); //커서 닫음
         db.close(); //db 닫음
-        if(count == 0 ) return false; //count가 0이면 일기가 없다는 이야기이므로 false 를 반환
+        if (count == 0) return false; //count가 0이면 일기가 없다는 이야기이므로 false 를 반환
         else return true; //count가 0이 아니면 일기가 있다는 이야기이므로 true를 반환
     }
 
