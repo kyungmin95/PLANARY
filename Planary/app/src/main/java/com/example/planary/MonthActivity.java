@@ -56,7 +56,7 @@ public class MonthActivity extends Activity {
         super.onBackPressed();
     }
 
-    //버튼클릭 시 반응
+    //버튼클릭 시 반응(이전 달, 다음 달, 오늘 버튼)
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.month_left: // 이전 달로 이동
@@ -85,14 +85,16 @@ public class MonthActivity extends Activity {
         }
     }
 
-    public void getCurrentDate() {  //오늘 날짜를 가져오는 함수. Calendar 사용.
+    //오늘 날짜를 가져오는 함수. Calendar 사용.
+    public void getCurrentDate() {
         c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH, 1);
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH) + 1;
     }
 
-    public void setDayDate() {  //TextView에 년, 월, 일을 입력하고 데이터베이스에서 사용하기 위한 sdate 설정
+    //TextView에 년, 월, 일을 입력하고 데이터베이스에서 사용하기 위한 sdate 설정
+    public void setDayDate() {
         dayDate = (TextView) findViewById(R.id.day_date);
         dayDate.setText(c.get(Calendar.YEAR) + "년 " + (c.get(Calendar.MONTH) + 1) + "월 ");
     }
@@ -172,7 +174,7 @@ public class MonthActivity extends Activity {
         return calendar;
     }
 
-    /*다음음달의 Calendar 객체 반환
+    /*다음달의 Calendar 객체 반환
     * @param calendar
      * @return NextMonthCalendar
     * */
@@ -188,7 +190,8 @@ public class MonthActivity extends Activity {
         gridView.setAdapter(calendarAdapter);
     }
 
-    public boolean getDiary(String date) { //인자로 받은 date 에 해당하는 일기가 있는지 탐색하고, 일기가 있으면 true 없으면 false 를 반환
+    //인자로 받은 date 에 해당하는 일기가 있는지 탐색하고, 일기가 있으면 true 없으면 false 를 반환
+    public boolean getDiary(String date) {
         String sdate = date; //인자로 받은 date 값을 sdate 에 넣음
         DayDiaryDB dHelper = new DayDiaryDB(this); //day의 diary DB를 가져와 dHelper 만듦
         SQLiteDatabase db = dHelper.getReadableDatabase(); //select 위한 SQLiteDatabase 생성
@@ -204,7 +207,8 @@ public class MonthActivity extends Activity {
         else return true; //count가 0이 아니면 일기가 있다는 이야기이므로 true를 반환
     }
 
-    public int getTodo(String date) { //인자로 받은 date에 있는 todolist 중 체크되지 않은(checkde 가 F) todolist의 갯수를 반환하는 함수
+    //인자로 받은 date에 있는 todolist 중 체크되지 않은(checkde 가 F) todolist의 갯수를 반환하는 함수
+    public int getTodo(String date) {
         String sdate = date; //인자로 받은 date 값을 sdate 에 넣음
         int count = 0; //체크되지 않은 todolist 갯수 저장하기 위한 변수. 0으로 초기화.
         DayDB helper = new DayDB(this); //day의 todolist DB를 가져와 helper 생성
@@ -216,6 +220,5 @@ public class MonthActivity extends Activity {
         }
         return count; //count 값을 반환
     }
-
 }
 
